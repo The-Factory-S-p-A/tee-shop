@@ -6,9 +6,16 @@ namespace TeeShop.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public sealed class ProductsController(IProductService productService) : BaseController
+public class ProductsController : BaseController
 {
+    private readonly IProductService _productService;
+
+    public ProductsController(IProductService productService)
+    {
+        _productService = productService ?? throw new ArgumentNullException(nameof(productService));
+    }
+
     [HttpGet]
     [ProducesResponseType(typeof(List<ProductDto>), StatusCodes.Status200OK)]
-    public Task<IActionResult> GetAll() => ResultToAction(productService.GetAll);
+    public Task<IActionResult> GetAll() => ResultToAction(_productService.GetAll);
 }

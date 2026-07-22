@@ -1,18 +1,29 @@
 using Microsoft.EntityFrameworkCore;
-using TeeShop.Common.Executors;
+using TeeShop.Common.Models;
 using TeeShop.Common.Results;
-using TeeShop.Sql.Models;
+using TeeShop.Sql.Mappers;
 
 namespace TeeShop.Sql.Repositories;
 
 public interface IProductRepository
 {
-    Task<Result<List<Product>>> GetAll();
+    Task<Result<List<ProductDto>>> GetAll();
 }
 
-public sealed class ProductRepository(ProductsContext context, IResultExecutor executor)
-    : RepositoryBase(context, executor), IProductRepository
+public class ProductRepository : RepositoryBase, IProductRepository
 {
-    public Task<Result<List<Product>>> GetAll() =>
-        UseContext(ctx => ctx.Products.AsNoTracking().OrderBy(p => p.Id).ToListAsync());
+    public ProductRepository(ProductsContext context) : base(context)
+    {
+    }
+
+    public Task<Result<List<ProductDto>>> GetAll() =>
+        UseContext(async context =>
+        {
+            var products = await context.Products
+                .AsNoTracking()
+                .OrderBy(p => p.Id)
+                .ToListAsync();
+
+            return products.Select(p => p.ToDto()).ToList();
+        });
 }

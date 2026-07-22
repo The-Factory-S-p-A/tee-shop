@@ -8,8 +8,15 @@ public interface IResultExecutor
     Task<Result<T>> Execute<T>(Func<Task<Result<T>>> operation);
 }
 
-public sealed class ResultExecutor(ILogger<ResultExecutor> logger) : IResultExecutor
+public class ResultExecutor : IResultExecutor
 {
+    private readonly ILogger<ResultExecutor> _logger;
+
+    public ResultExecutor(ILogger<ResultExecutor> logger)
+    {
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    }
+
     public async Task<Result<T>> Execute<T>(Func<Task<Result<T>>> operation)
     {
         try
@@ -18,7 +25,7 @@ public sealed class ResultExecutor(ILogger<ResultExecutor> logger) : IResultExec
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "Unexpected error while executing operation.");
+            _logger.LogError(ex, "Unexpected error while executing operation.");
             return new UnexpectedResult<T>(ex.Message);
         }
     }

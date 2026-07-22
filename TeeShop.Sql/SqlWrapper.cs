@@ -1,4 +1,3 @@
-using TeeShop.Common.Executors;
 using TeeShop.Sql.Repositories;
 
 namespace TeeShop.Sql;
@@ -8,9 +7,16 @@ public interface ISqlWrapper
     IProductRepository Product { get; }
 }
 
-public sealed class SqlWrapper(ProductsContext context, IResultExecutor executor) : ISqlWrapper
+public class SqlWrapper : ISqlWrapper
 {
+    private readonly ProductsContext _context;
+
     private IProductRepository? _product;
 
-    public IProductRepository Product => _product ??= new ProductRepository(context, executor);
+    public SqlWrapper(ProductsContext context)
+    {
+        _context = context ?? throw new ArgumentNullException(nameof(context));
+    }
+
+    public IProductRepository Product => _product ??= new ProductRepository(_context);
 }

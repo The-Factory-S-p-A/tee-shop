@@ -3,7 +3,6 @@ using TeeShop.Common.Models;
 using TeeShop.Common.Results;
 using TeeShop.Services;
 using TeeShop.Sql;
-using TeeShop.Sql.Models;
 using TeeShop.Sql.Repositories;
 
 namespace TeeShop.Tests.Services;
@@ -21,9 +20,9 @@ public class ProductServiceTests
     }
 
     [Fact]
-    public async Task GetAll_should_map_entities_to_dtos()
+    public async Task GetAll_should_return_the_repository_success_result()
     {
-        var products = new List<Product>
+        var dtos = new List<ProductDto>
         {
             new()
             {
@@ -48,68 +47,59 @@ public class ProductServiceTests
                 CreatedAt = new DateTime(2026, 1, 3, 0, 0, 0, DateTimeKind.Utc)
             }
         };
+        var repoResult = new SuccessResult<List<ProductDto>>(dtos);
 
-        _productRepo.Setup(x => x.GetAll()).ReturnsAsync(new SuccessResult<List<Product>>(products));
+        _productRepo.Setup(x => x.GetAll()).ReturnsAsync(repoResult);
 
         var result = await _sut.GetAll();
 
+        Assert.Same(repoResult, result);
         var success = Assert.IsType<SuccessResult<List<ProductDto>>>(result);
-        Assert.Equal(products.Count, success.Value!.Count);
-
-        for (var i = 0; i < products.Count; i++)
-        {
-            Assert.Equal(products[i].Id, success.Value[i].Id);
-            Assert.Equal(products[i].Name, success.Value[i].Name);
-            Assert.Equal(products[i].Description, success.Value[i].Description);
-            Assert.Equal(products[i].Price, success.Value[i].Price);
-            Assert.Equal(products[i].Color, success.Value[i].Color);
-            Assert.Equal(products[i].Size, success.Value[i].Size);
-            Assert.Equal(products[i].ImageUrl, success.Value[i].ImageUrl);
-            Assert.Equal(products[i].CreatedAt, success.Value[i].CreatedAt);
-        }
+        Assert.Equal(dtos, success.Value);
     }
 
     [Fact]
-    public async Task GetAll_should_propagate_not_found_with_message()
+    public async Task GetAll_should_return_not_found_from_repository_unchanged()
     {
-        _productRepo.Setup(x => x.GetAll()).ReturnsAsync(new NotFoundResult<List<Product>>("No products found."));
+        var repoResult = new NotFoundResult<List<ProductDto>>("No products found.");
+        _productRepo.Setup(x => x.GetAll()).ReturnsAsync(repoResult);
 
         var result = await _sut.GetAll();
 
-        var notFound = Assert.IsType<NotFoundResult<List<ProductDto>>>(result);
-        Assert.Equal("No products found.", notFound.Message);
+        Assert.Same(repoResult, result);
+        Assert.IsType<NotFoundResult<List<ProductDto>>>(result);
+        Assert.Equal("No products found.", result.Message);
     }
 
     [Fact]
-    public async Task GetAll_should_propagate_invalid_with_message()
+    public async Task GetAll_should_return_invalid_from_repository_unchanged()
     {
-        _productRepo.Setup(x => x.GetAll()).ReturnsAsync(new InvalidResult<List<Product>>("Invalid request."));
+        var repoResult = new InvalidResult<List<ProductDto>>("Invalid request.");
+        _productRepo.Setup(x => x.GetAll()).ReturnsAsync(repoResult);
 
         var result = await _sut.GetAll();
 
-        var invalid = Assert.IsType<InvalidResult<List<ProductDto>>>(result);
-        Assert.Equal("Invalid request.", invalid.Message);
+        Assert.Same(repoResult, result);
+        Assert.IsType<InvalidResult<List<ProductDto>>>(result);
+        Assert.Equal("Invalid request.", result.Message);
     }
 
     [Fact]
-    public async Task GetAll_should_fall_through_to_unexpected_with_message()
+    public async Task GetAll_should_return_unexpected_from_repository_unchanged()
     {
-        _productRepo.Setup(x => x.GetAll()).ReturnsAsync(new UnexpectedResult<List<Product>>("Something broke."));
+        var repoResult = new UnexpectedResult<List<ProductDto>>("Database error: something broke.");
+        _productRepo.Setup(x => x.GetAll()).ReturnsAsync(repoResult);
 
         var result = await _sut.GetAll();
 
-        var unexpected = Assert.IsType<UnexpectedResult<List<ProductDto>>>(result);
-        Assert.Equal("Something broke.", unexpected.Message);
+        Assert.Same(repoResult, result);
+        Assert.IsType<UnexpectedResult<List<ProductDto>>>(result);
+        Assert.Equal("Database error: something broke.", result.Message);
     }
 
     [Fact]
-    public async Task GetAll_should_default_message_when_none_is_present()
+    public void Constructor_should_throw_when_sql_wrapper_is_null()
     {
-        _productRepo.Setup(x => x.GetAll()).ReturnsAsync(new UnexpectedResult<List<Product>>(null!));
-
-        var result = await _sut.GetAll();
-
-        var unexpected = Assert.IsType<UnexpectedResult<List<ProductDto>>>(result);
-        Assert.Equal("Unexpected error.", unexpected.Message);
+        Assert.Throws<ArgumentNullException>(() => new ProductService(null!));
     }
 }
