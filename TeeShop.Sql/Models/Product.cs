@@ -1,8 +1,5 @@
 namespace TeeShop.Sql.Models;
 
-/// <summary>
-/// Persisted t-shirt product.
-/// </summary>
 public sealed class Product
 {
     public int Id { get; set; }

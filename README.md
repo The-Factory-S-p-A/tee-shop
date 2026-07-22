@@ -19,6 +19,7 @@ no manual setup required.
 git clone <this-repo-url>
 cd interview-product-challenge
 dotnet build TeeShop.sln
+dotnet test TeeShop.sln
 dotnet run --project TeeShop.Api
 ```
 

@@ -18,19 +18,16 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(policy => policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 });
 
-// Program -> ApiResolver -> ServicesResolver -> SqlResolver -> CommonResolver.
 ApiResolver.Register(builder.Services, builder.Configuration);
 
 var app = builder.Build();
 
-// Ensure the SQLite database exists and is seeded before the app starts accepting requests.
 using (var scope = app.Services.CreateScope())
 {
     var seeder = scope.ServiceProvider.GetRequiredService<IDatabaseSeeder>();
-    await seeder.SeedAsync();
+    await seeder.Seed();
 }
 
-// Swagger is intentionally always on (not gated to Development) so it is testable in any configuration.
 app.UseSwagger();
 app.UseSwaggerUI();
 

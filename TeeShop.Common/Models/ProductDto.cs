@@ -1,8 +1,5 @@
 namespace TeeShop.Common.Models;
 
-/// <summary>
-/// Product data returned by the API.
-/// </summary>
 public sealed class ProductDto
 {
     public int Id { get; set; }

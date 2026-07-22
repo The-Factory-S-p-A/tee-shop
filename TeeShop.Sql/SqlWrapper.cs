@@ -3,7 +3,11 @@ using TeeShop.Sql.Repositories;
 
 namespace TeeShop.Sql;
 
-/// <inheritdoc cref="ISqlWrapper" />
+public interface ISqlWrapper
+{
+    IProductRepository Product { get; }
+}
+
 public sealed class SqlWrapper(ProductsContext context, IResultExecutor executor) : ISqlWrapper
 {
     private IProductRepository? _product;

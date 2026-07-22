@@ -6,10 +6,6 @@ using TeeShop.Sql.Seeding;
 
 namespace TeeShop.Sql;
 
-/// <summary>
-/// Registers the services owned by <c>TeeShop.Sql</c>, then delegates to <see cref="CommonResolver"/>
-/// to complete the resolver chain.
-/// </summary>
 public static class SqlResolver
 {
     public static void Register(IServiceCollection services, IConfiguration configuration)

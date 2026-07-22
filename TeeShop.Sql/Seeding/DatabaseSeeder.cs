@@ -3,12 +3,15 @@ using TeeShop.Sql.Models;
 
 namespace TeeShop.Sql.Seeding;
 
-/// <inheritdoc cref="IDatabaseSeeder" />
+public interface IDatabaseSeeder
+{
+    Task Seed();
+}
+
 public sealed class DatabaseSeeder(ProductsContext context) : IDatabaseSeeder
 {
     private const int ProductCount = 50;
 
-    // Fixed base date so seed data (and this method) stays fully deterministic across runs.
     private static readonly DateTime BaseDate = new(2026, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
     private static readonly string[] Adjectives =
@@ -57,7 +60,7 @@ public sealed class DatabaseSeeder(ProductsContext context) : IDatabaseSeeder
         "a ribbed collar that resists stretching out"
     ];
 
-    public async Task SeedAsync()
+    public async Task Seed()
     {
         await context.Database.EnsureCreatedAsync();
 

@@ -3,10 +3,14 @@ using TeeShop.Common.Results;
 
 namespace TeeShop.Common.Executors;
 
-/// <inheritdoc cref="IResultExecutor" />
+public interface IResultExecutor
+{
+    Task<Result<T>> Execute<T>(Func<Task<Result<T>>> operation);
+}
+
 public sealed class ResultExecutor(ILogger<ResultExecutor> logger) : IResultExecutor
 {
-    public async Task<Result<T>> ExecuteAsync<T>(Func<Task<Result<T>>> operation)
+    public async Task<Result<T>> Execute<T>(Func<Task<Result<T>>> operation)
     {
         try
         {

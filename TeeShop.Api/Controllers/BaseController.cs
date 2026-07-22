@@ -3,10 +3,6 @@ using TeeShop.Common.Results;
 
 namespace TeeShop.Api.Controllers;
 
-/// <summary>
-/// Base controller that maps a <see cref="Result{T}"/> produced by the service layer to the matching
-/// <see cref="IActionResult"/>, so concrete actions stay one-liners.
-/// </summary>
 public abstract class BaseController : ControllerBase
 {
     protected async Task<IActionResult> ResultToAction<T>(Func<Task<Result<T>>> action)

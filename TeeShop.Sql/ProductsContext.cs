@@ -9,8 +9,7 @@ public sealed class ProductsContext(DbContextOptions<ProductsContext> options) :
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        // SQLite has no native decimal type; without this conversion, translating queries
-        // that order or filter on Price (e.g. OrderBy(p => p.Price)) would fail at runtime.
+        // SQLite has no native decimal type, so Price needs an explicit conversion to be queryable.
         modelBuilder.Entity<Product>()
             .Property(p => p.Price)
             .HasConversion<double>();
