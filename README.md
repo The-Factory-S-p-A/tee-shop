@@ -39,7 +39,8 @@ Product images come from an external placeholder service, so you need to be onli
 2. Set a breakpoint in `ProductsController` and confirm you can debug.
 3. Create an empty Angular app (`ng new`) and check that `ng serve` works.
 4. Bring your AI coding assistant (Claude Code, Copilot, Codex, ...), installed and authenticated.
-   You'll use it during the session.
+   You'll use it during the session. No subscription? A free tier works fine: Gemini CLI, Codex,
+   or even the plain ChatGPT web chat.
 
 If something doesn't work, contact us before the interview day.
 
