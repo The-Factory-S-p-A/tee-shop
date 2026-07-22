@@ -1,0 +1,13 @@
+# Build output
+bin/
+obj/
+
+# IDE
+.vs/
+.idea/
+*.user
+
+# SQLite database (auto-created and seeded on first run)
+*.db
+*.db-shm
+*.db-wal
