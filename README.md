@@ -11,7 +11,7 @@ strictly requires: a layered architecture, a small Result pattern for propagatin
 across layers, resolver-based dependency wiring, and a dedicated test project. That's on purpose —
 the codebase mirrors the conventions we actually use for real projects at The Factory, so working in
 it gives you an honest preview of the patterns you'd work with day to day here, rather than a
-synthetic toy exercise built just for this exercise.
+synthetic toy built just for the occasion.
 
 ## Prerequisites
 
@@ -19,6 +19,9 @@ synthetic toy exercise built just for this exercise.
   targets `net10.0`, so an 8/9 SDK will not build it; make sure `dotnet --version` reports `10.x`
   before your interview.
 - **Git**, to clone the repository.
+- **Node.js (LTS)** — part of the interview involves writing browser-based UI code against this API.
+  We work with Angular, so having the Angular CLI installed (`npm install -g @angular/cli`) is ideal,
+  but another modern JS framework you're productive in is fine too.
 - An IDE of your choice: Visual Studio 2022, JetBrains Rider, or VS Code with the C# Dev Kit
   extension.
 
@@ -65,7 +68,11 @@ Please do this ahead of time so we don't spend interview time on environment set
    during the interview if the layering and the Result pattern already feel familiar.
 4. You will extend this project live during the interview, so make sure your environment is ready
    to write and debug code comfortably.
-5. **Bring an AI coding assistant** (Claude Code, GitHub Copilot, Codex CLI, or similar) — it is
+5. Have a frontend workspace ready to go: an empty Angular app that already builds and serves
+   (`ng new`, then confirm `ng serve` works) is ideal, since Angular is what we use — but if you're
+   faster with another modern JS framework, prepare that instead. We don't want you spending
+   interview time on scaffolding and `npm install`.
+6. **Bring an AI coding assistant** (Claude Code, GitHub Copilot, Codex CLI, or similar) — it is
    strongly recommended for the interview. Please have it installed and authenticated beforehand,
    since we won't have time to set one up on the day.
 
