@@ -1,8 +1,17 @@
 # TeeShop Products API
 
-A small ASP.NET Core Web API (.NET 10) that serves a catalog of t-shirt products. On first run it
-automatically creates a local SQLite database and seeds it with 50 deterministic demo products —
-no manual setup required.
+A small ASP.NET Core Web API (.NET 10) that exposes a catalog of fake/demo t-shirt products, backed
+by a local SQLite database that is created and seeded automatically on first run. It's the starting
+point for a live coding interview — you'll extend it during the session.
+
+## Why it looks like this
+
+For a single read-only endpoint, this solution is deliberately more structured than the use case
+strictly requires: a layered architecture, a small Result pattern for propagating success/failure
+across layers, resolver-based dependency wiring, and a dedicated test project. That's on purpose —
+the codebase mirrors the conventions we actually use for real projects at The Factory, so working in
+it gives you an honest preview of the patterns you'd work with day to day here, rather than a
+synthetic toy exercise built just for this exercise.
 
 ## Prerequisites
 
@@ -30,7 +39,9 @@ The API listens on `http://localhost:5080`.
 ## What to expect
 
 - Swagger UI is available at `http://localhost:5080/swagger` and documents the API surface.
-- Try `GET /api/products` — it returns the full seeded catalog as JSON.
+- Try `GET /api/products` — it returns the full seeded catalog as JSON. Product images are placeholder
+  photos loaded from an external service, so you'll need an internet connection to see them rendered
+  (the data itself works fine offline).
 - The solution follows a small layered architecture:
 
   ```
@@ -50,11 +61,13 @@ Please do this ahead of time so we don't spend interview time on environment set
 1. Clone the repository, confirm `dotnet build TeeShop.sln` succeeds, and run the API.
 2. Confirm you can set a breakpoint (e.g. inside `ProductsController`) and hit it in debug mode
    from your IDE.
-3. You will extend this project live during the interview, so make sure your environment is ready
+3. Spend a few minutes reading through the existing code, not just running it — you'll move faster
+   during the interview if the layering and the Result pattern already feel familiar.
+4. You will extend this project live during the interview, so make sure your environment is ready
    to write and debug code comfortably.
-4. An AI coding assistant is welcome during the interview (Claude Code, GitHub Copilot, Codex CLI,
-   or similar) — please have it installed and authenticated beforehand, since we won't have time to
-   set it up on the day.
+5. **Bring an AI coding assistant** (Claude Code, GitHub Copilot, Codex CLI, or similar) — it is
+   strongly recommended for the interview. Please have it installed and authenticated beforehand,
+   since we won't have time to set one up on the day.
 
 ## Troubleshooting
 
@@ -64,3 +77,5 @@ Please do this ahead of time so we don't spend interview time on environment set
 - **Port already in use**: the API is fixed to port `5080` in
   `TeeShop.Api/Properties/launchSettings.json`. If something else on your machine is already using
   it, edit `applicationUrl` in that file to a free port.
+- If anything above doesn't work for you, reach out to whoever scheduled the interview before the
+  day itself so we can sort it out rather than losing time during the session.
