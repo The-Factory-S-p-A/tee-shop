@@ -71,11 +71,8 @@ Please do this ahead of time so we don't spend interview time on environment set
    to write and debug code comfortably.
 5. Have an empty Angular app ready to go: run `ng new`, confirm `ng serve` works, and keep that
    workspace at hand. We don't want you spending interview time on scaffolding and `npm install`.
-6. **Bring an AI coding assistant** (Claude Code, GitHub Copilot, Codex CLI, or similar) — this is
-   **required**, not optional: the interview is scoped assuming you'll use one, and without it we
-   simply won't have time to finish. It also reflects how we actually work day to day. Have it
-   installed and authenticated beforehand (free tiers are fine if you don't have a subscription),
-   since we won't set one up on the day.
+6. **Bring your AI coding assistant** (Claude Code, GitHub Copilot, Codex CLI, or similar) — you'll
+   be using it throughout the session, so have it installed and authenticated before the day.
 
 ## Troubleshooting
 
