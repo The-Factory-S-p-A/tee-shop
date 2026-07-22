@@ -19,9 +19,10 @@ synthetic toy built just for the occasion.
   targets `net10.0`, so an 8/9 SDK will not build it; make sure `dotnet --version` reports `10.x`
   before your interview.
 - **Git**, to clone the repository.
-- **Node.js (LTS)** — part of the interview involves writing browser-based UI code against this API.
-  We work with Angular, so having the Angular CLI installed (`npm install -g @angular/cli`) is ideal,
-  but another modern JS framework you're productive in is fine too.
+- **Node.js (LTS) and the Angular CLI** (`npm install -g @angular/cli`) — part of the interview
+  involves writing browser-based UI code against this API, and Angular is the framework we use.
+  Don't worry if Angular isn't your main framework: prior Angular experience is not assumed, but
+  the working environment is.
 - An IDE of your choice: Visual Studio 2022, JetBrains Rider, or VS Code with the C# Dev Kit
   extension.
 
@@ -68,13 +69,13 @@ Please do this ahead of time so we don't spend interview time on environment set
    during the interview if the layering and the Result pattern already feel familiar.
 4. You will extend this project live during the interview, so make sure your environment is ready
    to write and debug code comfortably.
-5. Have a frontend workspace ready to go: an empty Angular app that already builds and serves
-   (`ng new`, then confirm `ng serve` works) is ideal, since Angular is what we use — but if you're
-   faster with another modern JS framework, prepare that instead. We don't want you spending
-   interview time on scaffolding and `npm install`.
-6. **Bring an AI coding assistant** (Claude Code, GitHub Copilot, Codex CLI, or similar) — it is
-   strongly recommended for the interview. Please have it installed and authenticated beforehand,
-   since we won't have time to set one up on the day.
+5. Have an empty Angular app ready to go: run `ng new`, confirm `ng serve` works, and keep that
+   workspace at hand. We don't want you spending interview time on scaffolding and `npm install`.
+6. **Bring an AI coding assistant** (Claude Code, GitHub Copilot, Codex CLI, or similar) — this is
+   **required**, not optional: the interview is scoped assuming you'll use one, and without it we
+   simply won't have time to finish. It also reflects how we actually work day to day. Have it
+   installed and authenticated beforehand (free tiers are fine if you don't have a subscription),
+   since we won't set one up on the day.
 
 ## Troubleshooting
 
