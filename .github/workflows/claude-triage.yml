@@ -1,0 +1,16 @@
+name: Claude triage
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  triage:
+    uses: The-Factory-S-p-A/kubernetes-conf/.github/workflows/claude-triage.yml@main
+    secrets: inherit
+    with:
+      base-branch: main
