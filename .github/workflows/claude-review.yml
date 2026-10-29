@@ -1,0 +1,14 @@
+name: Claude review
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  review:
+    uses: The-Factory-S-p-A/kubernetes-conf/.github/workflows/claude-review.yml@main
+    secrets: inherit
