@@ -1,0 +1,27 @@
+name: Claude
+
+on:
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  issues:
+    types: [opened, assigned]
+  pull_request_review:
+    types: [submitted]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  id-token: write
+  actions: read
+  packages: read
+
+jobs:
+  claude:
+    uses: The-Factory-S-p-A/kubernetes-conf/.github/workflows/claude.yml@main
+    secrets: inherit
+    with:
+      base-branch: main
+      dotnet: true
